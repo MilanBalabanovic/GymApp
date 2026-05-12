@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface BottomSheetProps {
   open: boolean;
@@ -11,21 +12,24 @@ interface BottomSheetProps {
 }
 
 export function BottomSheet({ open, onClose, children, title }: BottomSheetProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
           <motion.div
-            className="fixed inset-0 bg-black/60 z-40"
+            className="fixed inset-0 bg-black/60"
+            style={{ zIndex: 200 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -33,8 +37,8 @@ export function BottomSheet({ open, onClose, children, title }: BottomSheetProps
             onClick={onClose}
           />
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl overflow-hidden"
-            style={{ background: 'var(--surface)' }}
+            className="fixed bottom-0 left-0 right-0 rounded-t-3xl overflow-hidden"
+            style={{ background: 'var(--surface)', zIndex: 201 }}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
@@ -56,12 +60,13 @@ export function BottomSheet({ open, onClose, children, title }: BottomSheetProps
                 </p>
               </div>
             )}
-            <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+            <div style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)' }}>
               {children}
             </div>
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
