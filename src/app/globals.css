@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0A0A0A;
+  --surface: #141414;
+  --card: #1C1C1C;
+  --border: #2A2A2A;
+  --primary: #FFFFFF;
+  --secondary: #8A8A8A;
+  --accent-green: #4CAF50;
+  --destructive: #FF3B30;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}
+
+#__next,
+main {
+  height: 100%;
+}
+
+/* Safe area utilities */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.pb-safe-nav {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+}
+
+/* Scroll snap */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-child {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Drumroll picker */
+.drumroll-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.drumroll-container::-webkit-scrollbar {
+  display: none;
+}
+.drumroll-item {
+  scroll-snap-align: center;
+}
+
+/* Hide scrollbars globally where needed */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent text selection on interactive elements */
+button,
+[role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
