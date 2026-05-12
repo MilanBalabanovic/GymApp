@@ -99,6 +99,9 @@ class GymTrackerDatabase extends Dexie {
       bodyweightEntries: 'id, loggedAt',
       progressPhotos: 'id, loggedAt',
     });
+    this.version(3).stores({}).upgrade(async (tx) => {
+      await tx.table('exercises').where('isCustom').equals(0).delete();
+    });
   }
 }
 
