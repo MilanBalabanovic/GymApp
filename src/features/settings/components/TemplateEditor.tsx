@@ -41,8 +41,9 @@ export function TemplatesSection() {
 
   const handleRename = async () => {
     if (!editId || !newName.trim()) return;
-    await renameTemplate(editId, newName.trim());
-    setNewName('');
+    const trimmed = newName.trim();
+    await renameTemplate(editId, trimmed);
+    setNewName(trimmed);
   };
 
   const handleDelete = async (id: string) => {

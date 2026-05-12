@@ -91,3 +91,10 @@ button,
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* Prevent iOS Safari auto-zoom on input focus (triggered when font-size < 16px) */
+input,
+textarea,
+select {
+  font-size: max(16px, 1em) !important;
+}
