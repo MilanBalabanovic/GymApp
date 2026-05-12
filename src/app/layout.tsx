@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/core/components/BottomNav";
 import { DBInitializer } from "@/core/components/DBInitializer";
+import { InstallBanner } from "@/core/components/InstallBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
     startupImage: "/icon-512.svg",
   },
   icons: {
-    apple: "/apple-touch-icon.svg",
-    icon: "/icon-512.svg",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    icon: [{ url: "/icon-512.png", sizes: "512x512", type: "image/png" }],
   },
   other: {
     "mobile-web-app-capable": "yes",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <DBInitializer />
         {children}
         <BottomNav />
+        <InstallBanner />
       </body>
     </html>
   );
