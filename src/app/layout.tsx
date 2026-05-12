@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "GymTracker",
+    startupImage: "/icon-512.svg",
+  },
+  icons: {
+    apple: "/apple-touch-icon.svg",
+    icon: "/icon-512.svg",
   },
   other: {
     "mobile-web-app-capable": "yes",
